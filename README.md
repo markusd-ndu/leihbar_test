@@ -4,7 +4,7 @@ Dein Startpunkt für den Kurs **„Programmieren mit AI“** (MSc Management by 
 Du musst **nichts installieren.** Alles läuft im Browser.
 Lokal auf dem eigenen Laptop arbeiten statt im Codespace (ab Tag 2): Anleitung unter [Setup → Lokal](https://ndu.datamonkeys.ai/setup#lokal).
 
-## In 5 Schritten zur laufenden App
+## In 5 Schritten zur laufenden 
 
 1. **Eigenes Repo anlegen:** oben rechts auf **„Use this template“ → „Create a new repository“**. Name: `leihbar`, Owner: dein GitHub-Account, Public. → „Create repository“.
 2. **Codespace starten:** in deinem neuen Repo auf den grünen Button **„Code“ → Tab „Codespaces“ → „Create codespace on main“**. Das dauert beim ersten Mal 2–4 Minuten. Du landest in VS Code im Browser.
