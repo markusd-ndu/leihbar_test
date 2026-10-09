@@ -1,9 +1,18 @@
 import { Hand, Recycle, Search } from "lucide-react";
+import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
-import { gegenstaende } from "@/data/gegenstaende";
+import GegenstandKarte from "@/components/GegenstandKarte";
+import KategorieFilter from "@/components/KategorieFilter";
+import { gegenstaende, kategorien } from "@/data/gegenstaende";
 
-export default function Home() {
-  const anzahl = gegenstaende.length;
+export default async function Home({ searchParams }: PageProps<"/">) {
+  const { kategorie } = await searchParams;
+  // Unbekannte oder fehlende Kategorie in der Adresse → „Alle“.
+  const aktiveKategorie = kategorien.find((k) => k === kategorie) ?? null;
+
+  const sichtbar = gegenstaende.filter(
+    (g) => g.verfuegbar && (aktiveKategorie === null || g.kategorie === aktiveKategorie),
+  );
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-12 sm:block">
@@ -49,16 +58,27 @@ export default function Home() {
         />
       </section>
 
-      <section
-        id="gegenstaende"
-        className="rounded-2xl border border-dashed border-border bg-card p-8 text-center"
-      >
-        <h2 className="mb-2 text-xl font-semibold">Hier kommt die Liste hin</h2>
-        <p className="mx-auto max-w-md text-sm text-muted">
-          In <code className="rounded bg-accent-soft px-1">src/data/gegenstaende.ts</code>{" "}
-          warten bereits {anzahl} Beispiel-Gegenstände. Dein erstes Issue (Issue 1
-          im Backlog) bringt sie auf diese Seite.
-        </p>
+      <section id="gegenstaende" aria-labelledby="gegenstaende-titel" className="scroll-mt-4">
+        <h2 id="gegenstaende-titel" className="mb-4 text-2xl font-semibold">
+          Gerade ausleihbar
+        </h2>
+        <KategorieFilter aktiv={aktiveKategorie} />
+        {sichtbar.length > 0 ? (
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {sichtbar.map((gegenstand, index) => (
+              <li key={gegenstand.id}>
+                <GegenstandKarte gegenstand={gegenstand} vorladen={index === 0} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-muted">
+            In dieser Kategorie ist gerade nichts frei.{" "}
+            <Link href="/" scroll={false} className="font-medium text-foreground underline">
+              Alle Gegenstände ansehen
+            </Link>
+          </p>
+        )}
       </section>
     </main>
   );

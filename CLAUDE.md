@@ -13,11 +13,12 @@ Dieses Projekt gehört einer/einem Studierenden der NDU (Master Management by In
 ## Wie du arbeitest
 
 - **Kleine Schritte.** Ein Issue oder ein Wunsch pro Durchgang. Keine „während ich schon dabei bin“-Änderungen.
+- **Ein Issue umsetzen:** Zu Beginn setzt du es im Backlog auf 🔧 in Arbeit. Danach schlägst du kein nächstes Issue vor und beginnst keines. Der Durchgang endet mit den Belegen und dem Satz: „Prüf die Kriterien im Browser. Stimmen alle, sag „fertig“ – dann setze ich das Issue im Backlog auf fertig, und du machst `/ndu-check`, `/ndu-commit` und `/clear`.“ Was als Nächstes dran ist, entscheidet die Person – außer sie fragt dich ausdrücklich danach oder ein Befehl wie `/ndu-brainstorm` sieht es vor.
 - **Erst verstehen, dann bauen.** Ist ein Issue unklar oder fehlt eine Entscheidung, frag zuerst nach. Ist es klar, setz es direkt um – ohne separaten Plan.
 - **Neues Produkt oder neue Idee:** erst Rückfragen, Dateien erst nach Okay – Produkt-Brief mit `/ndu-idee`, Funktionen und Backlog mit `/ndu-brainstorm`.
 - **Festgefahren?** Hat die Person zweimal korrigiert und es klappt immer noch nicht, versuch es nicht ein drittes Mal gleich: Schlag `/ndu-beratung` vor (Zweitmeinung von Opus) oder einen Neustart mit `/clear` und präziserem Auftrag.
 - Nach jeder Umsetzung: `npm run lint` ausführen und sicherstellen, dass `npm run dev` ohne Fehler läuft. Fehler sofort beheben, nicht der Person überlassen.
-- **Datenbank nur nach Okay.** Bevor du Tabellen, Regeln (Row Level Security) oder Daten in Supabase anlegst oder änderst – auch über den Supabase-MCP –, beschreib in 2–3 Sätzen, was du vorhast, und warte auf ein Okay. Das gilt auch in Auto Mode.
+- **Datenbank nur nach Okay.** Bevor du Tabellen, Regeln (Row Level Security) oder Daten in Supabase anlegst oder änderst – auch über den Supabase-MCP –, beschreib in 2–3 Sätzen, was du vorhast, und warte auf ein Okay. Das gilt auch in Auto Mode. Nach dem Okay setzt du das ganze Issue um, nicht nur die Datenbank.
 - **Nie Secrets in den Code.** API-Keys, Passwörter, Supabase-Keys gehören in `.env.local` (ist in `.gitignore`). Wenn du einen Key brauchst, erkläre, wo die Person ihn herbekommt und in welche Variable er gehört.
 - **Nie `git push --force`, nie `rm -rf`, nie `.env*`-Dateien committen.**
 - Akzeptanzkriterien aus `docs/BACKLOG.md` sind die Definition of Done. Wenn ein Issue umgesetzt ist, geh die Kriterien einzeln durch und zeig für jedes einen **Beleg**: was du geprüft hast (Build, Test, Abfrage) und was die Person im Browser sehen soll. Behaupte nichts, was du nicht geprüft hast.
@@ -29,6 +30,7 @@ Dieses Projekt gehört einer/einem Studierenden der NDU (Master Management by In
 - UI: schlicht, modern, mobile-first. Keine zusätzlichen UI-Bibliotheken ohne Rücksprache.
 - Aktuelle Doku: Bei Fragen zu Bibliotheken (Supabase, Tailwind, Lucide …) nutze **Context7** statt deines Trainingswissens – mit Library-ID, wenn du sie kennst (z. B. `/supabase/supabase`), eine Frage pro Abfrage, passend zur Version in `package.json`. Ausnahme Next.js: Die passende Doku liegt in `node_modules/next/dist/docs/` (siehe `AGENTS.md`).
 - Icons: **Lucide** (`lucide-react`, schon installiert), keine Emojis in der Oberfläche. Dekorative Icons brauchen nichts; ein Icon ohne Text daneben (z. B. ein Button nur mit Icon) bekommt ein `aria-label`.
+- Animationen in Komponenten: **Motion** (Paket `motion`, Import aus `motion/react`) ist freigegeben, keine andere Animations-Bibliothek. Nur `transform` und `opacity` bewegen; Rückmeldung eines Buttons oder Zählers auf einen Klick höchstens 0,3 s, Ein- und Ausblenden und Platzwechsel höchstens 0,6 s, nichts in Dauerschleife.
 - Deployment: Vercel
 - Beispieldaten liegen in `src/data/gegenstaende.ts` (Bilder in `public/gegenstaende/`), bis die Datenbank angebunden ist.
 
@@ -42,7 +44,7 @@ Dieses Projekt gehört einer/einem Studierenden der NDU (Master Management by In
 - Jede Liste hat einen leeren Zustand: ein Satz und ein Link weiter. Meldungen sind ganze deutsche Sätze, die Oberfläche duzt.
 - Preise immer über `preisText()` aus `src/lib/format.ts`, Kategorien aus `kategorien` in `src/data/gegenstaende.ts`.
 - Schriften über `next/font/google` in `src/app/layout.tsx` laden (nichts installieren). Farben nur als Tokens in `src/app/globals.css`, nicht als Hex in den Komponenten.
-- Kleiner Text (unter 14 px) nie in der Akzentfarbe auf hellem Grund. Den Fokus-Rahmen nie entfernen, nur ersetzen. „Bewegung reduzieren“ regelt `globals.css` für alle Animationen.
+- Kleiner Text (unter 14 px) nie in der Akzentfarbe auf hellem Grund. Den Fokus-Rahmen nie entfernen, nur ersetzen. „Bewegung reduzieren“ regelt `globals.css` nur für CSS-Animationen; für Motion sorgt `<MotionConfig reducedMotion="user">` in `src/app/layout.tsx` dafür – um alles innerhalb von `<body>`, auch Header und Footer (anlegen, sobald Motion installiert wird).
 
 ## Projektstruktur
 
