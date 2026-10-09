@@ -63,5 +63,6 @@ export async function statusSetzen(
   if (data.length === 0) return { fehler: "Diese Anfrage kannst du nicht beantworten." };
 
   revalidatePath(`/gegenstaende/${gegenstandId}`);
+  revalidatePath("/anfragen-an-mich");
   return {};
 }

@@ -2,6 +2,7 @@ import type { Gegenstand } from "@/data/gegenstaende";
 import type { Nutzer } from "@/lib/auth";
 import { spalten, zuGegenstand, type Zeile } from "@/lib/items";
 import type { AnfrageStatus } from "@/lib/anfrage-status";
+import { zaehleOffeneAnfragen } from "@/lib/offene-anfragen";
 import { createClient } from "@/lib/supabase/server";
 
 /** Eine Anfrage, wie die Besitzer*in sie auf der Detailseite sieht. */
@@ -57,4 +58,32 @@ export async function ladeErhalteneAnfragen(gegenstandId: string): Promise<Erhal
     .overrideTypes<ErhalteneAnfrage[]>();
   if (error) throw new Error(`Anfragen konnten nicht geladen werden: ${error.message}`);
   return data;
+}
+
+/** Eine offene Anfrage auf einen eigenen Gegenstand, für die Seite „Anfragen an mich“. */
+export type OffeneAnfrage = ErhalteneAnfrage & { gegenstand: { id: string; titel: string } };
+
+/** Alle offenen Anfragen auf die Gegenstände dieser Person, die neueste zuerst. */
+export async function ladeOffeneAnfragenAnMich(nutzer: Nutzer): Promise<OffeneAnfrage[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("requests")
+    .select("id, email, status, items!inner(id, titel)")
+    .eq("status", "offen")
+    .eq("items.owner_id", nutzer.id)
+    .order("created_at", { ascending: false })
+    .overrideTypes<(ErhalteneAnfrage & { items: { id: string; titel: string } })[]>();
+  if (error) throw new Error(`Anfragen konnten nicht geladen werden: ${error.message}`);
+  return data.map(({ items, ...anfrage }) => ({ ...anfrage, gegenstand: items }));
+}
+
+/** Für den Hinweis im Header: Zahl der offenen Anfragen und die eigenen Gegenstände, die er beobachtet. */
+export async function ladeHinweisAufAnfragen(nutzer: Nutzer): Promise<{ anzahl: number; gegenstandIds: string[] }> {
+  const supabase = await createClient();
+  const [anzahl, { data, error }] = await Promise.all([
+    zaehleOffeneAnfragen(supabase, nutzer.id),
+    supabase.from("items").select("id").eq("owner_id", nutzer.id),
+  ]);
+  if (error) throw new Error(`Eigene Gegenstände konnten nicht geladen werden: ${error.message}`);
+  return { anzahl, gegenstandIds: data.map((zeile) => zeile.id) };
 }

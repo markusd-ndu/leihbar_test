@@ -119,7 +119,7 @@
 
 **Fertig, wenn:** die nächste Person in der Runde auf meiner Live-Adresse einen Gegenstand angefragt hat, den ich angeboten habe; ich habe angenommen und sie hat „angenommen“ gesehen; eine zweite Anfrage abgelehnt; RLS-Prüfung mit dem Supabase-MCP ohne Lücke.
 
-### ⬜ Issue 11 — Hinweis auf neue Anfragen (wer schnell ist)
+### 🔧 Issue 11 — Hinweis auf neue Anfragen (wer schnell ist)
 **Ziel:** Im Header sehe ich, wie viele offene Anfragen auf meine Gegenstände warten – damit ich keine verpasse.
 **Nicht im Umfang:** E-Mail- oder Push-Benachrichtigungen, Anfragen auf fremde Gegenstände.
 **Akzeptanzkriterien:**

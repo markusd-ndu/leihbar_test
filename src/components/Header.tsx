@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { abmelden } from "@/app/anmelden/actions";
-import { ladeNutzer } from "@/lib/auth";
+import AnfragenHinweis from "@/components/AnfragenHinweis";
+import { ladeHinweisAufAnfragen } from "@/lib/anfragen";
+import { ladeNutzer, type Nutzer } from "@/lib/auth";
 
 export default async function Header() {
   const nutzer = await ladeNutzer();
+  const hinweis = nutzer ? await ladeHinweisOhneAbsturz(nutzer) : null;
 
   return (
     <header className="border-b border-border bg-card/80 backdrop-blur">
@@ -22,6 +25,9 @@ export default async function Header() {
           </Link>
           {nutzer ? (
             <>
+              {hinweis && (
+                <AnfragenHinweis nutzerId={nutzer.id} gegenstandIds={hinweis.gegenstandIds} anzahl={hinweis.anzahl} />
+              )}
               {/* Lange Adressen werden mit „…“ gekürzt, damit der Header einzeilig bleibt. */}
               <span className="min-w-0 truncate" title={nutzer.email}>
                 <span className="sr-only">Angemeldet als </span>
@@ -45,4 +51,14 @@ export default async function Header() {
       </div>
     </header>
   );
+}
+
+/** Klappt das Zählen nicht, fehlt nur der Hinweis – der Header soll keine Seite zum Absturz bringen. */
+async function ladeHinweisOhneAbsturz(nutzer: Nutzer) {
+  try {
+    return await ladeHinweisAufAnfragen(nutzer);
+  } catch (fehler) {
+    console.error(fehler);
+    return null;
+  }
 }

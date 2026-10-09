@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { beobachteAnfragen } from "@/lib/anfragen-live";
 import { createClient } from "@/lib/supabase/client";
 
 type Props = {
@@ -35,17 +36,7 @@ export default function AnfragenZaehler({ gegenstandId, anzahl }: Props) {
       if (!error && nummer === abfrage.current) setZahl(Number(data));
     }
 
-    const kanal = supabase
-      .channel(`anfragen:${gegenstandId}`)
-      .on("broadcast", { event: "geaendert" }, neuLaden)
-      // Beim (Wieder-)Verbinden einmal nachladen – falls sich in der Zwischenzeit etwas geändert hat.
-      .subscribe((status) => {
-        if (status === "SUBSCRIBED") neuLaden();
-      });
-
-    return () => {
-      supabase.removeChannel(kanal);
-    };
+    return beobachteAnfragen(gegenstandId, neuLaden);
   }, [gegenstandId]);
 
   return <span className="font-semibold text-foreground">{zahl}</span>;

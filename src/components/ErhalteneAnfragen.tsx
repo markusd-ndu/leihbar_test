@@ -37,7 +37,16 @@ export default function ErhalteneAnfragen({ gegenstandId, anfragen }: Props) {
   );
 }
 
-function AnfrageZeile({ gegenstandId, anfrage }: { gegenstandId: string; anfrage: ErhalteneAnfrage }) {
+/** Eine Anfrage mit „Annehmen“ und „Ablehnen“. Mit `titel` steht der Gegenstand als Link dabei. */
+export function AnfrageZeile({
+  gegenstandId,
+  anfrage,
+  titel,
+}: {
+  gegenstandId: string;
+  anfrage: ErhalteneAnfrage;
+  titel?: string;
+}) {
   const [zustand, formAction, laeuft] = useActionState<AnfrageZustand, FormData>(
     statusSetzen.bind(null, anfrage.id, gegenstandId),
     {},
@@ -46,6 +55,11 @@ function AnfrageZeile({ gegenstandId, anfrage }: { gegenstandId: string; anfrage
   return (
     <li className="flex flex-col gap-3 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
+        {titel && (
+          <Link href={`/gegenstaende/${gegenstandId}`} className="font-semibold underline">
+            {titel}
+          </Link>
+        )}
         <p className="break-words font-medium">{anfrage.email}</p>
         <p className="text-sm text-muted">Status: {anfrage.status}</p>
       </div>
