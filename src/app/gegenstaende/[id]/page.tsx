@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ImageOff, MapPin, User } from "lucide-react";
+import AnfrageButton from "@/components/AnfrageButton";
+import { hatAngefragt, ladeAnzahlAnfragen } from "@/lib/anfragen";
+import { ladeNutzer } from "@/lib/auth";
 import { ladeGegenstand } from "@/lib/items";
 import { preisText } from "@/lib/format";
 
@@ -17,6 +20,8 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
   const { id } = await params;
   const gegenstand = await ladeGegenstand(id);
   if (!gegenstand) notFound();
+  const nutzer = await ladeNutzer();
+  const [anzahl, angefragt] = await Promise.all([ladeAnzahlAnfragen(id), hatAngefragt(id, nutzer)]);
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
@@ -28,8 +33,9 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
         Zurück zur Liste
       </Link>
 
-      <article>
-        <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl bg-accent-soft">
+      {/* Am Handy stehen Titel, Preis und Button über dem Bild – so ist der Button ohne Scrollen sichtbar. */}
+      <article className="flex flex-col">
+        <div className="relative order-2 mb-6 aspect-[4/3] overflow-hidden rounded-2xl bg-accent-soft sm:order-1">
           {gegenstand.bild ? (
             <Image
               src={gegenstand.bild}
@@ -46,34 +52,40 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
           )}
         </div>
 
-        <p className="mb-1 text-sm text-muted">{gegenstand.kategorie}</p>
-        <h1 className="mb-2 text-3xl font-bold leading-tight">{gegenstand.titel}</h1>
-        <p className="mb-4 text-xl font-semibold">{preisText(gegenstand.preisProTag)}</p>
+        <div className="order-1 sm:order-2">
+          <p className="mb-1 text-sm text-muted">{gegenstand.kategorie}</p>
+          <h1 className="mb-2 text-3xl font-bold leading-tight">{gegenstand.titel}</h1>
+          <p className="mb-4 text-xl font-semibold">{preisText(gegenstand.preisProTag)}</p>
 
-        {!gegenstand.verfuegbar && (
-          <p className="mb-4 rounded-xl border border-border bg-card px-4 py-3 text-sm">
-            Dieser Gegenstand ist gerade verliehen.
-          </p>
-        )}
+          <AnfrageButton gegenstandId={id} anzahl={anzahl} angefragt={angefragt} angemeldet={nutzer !== null} />
+        </div>
 
-        <p className="mb-6 leading-relaxed">{gegenstand.beschreibung}</p>
+        <div className="order-3">
+          {!gegenstand.verfuegbar && (
+            <p className="mb-4 rounded-xl border border-border bg-card px-4 py-3 text-sm">
+              Dieser Gegenstand ist gerade verliehen.
+            </p>
+          )}
 
-        <dl className="space-y-2 rounded-2xl border border-border bg-card p-4">
-          <div className="flex items-start gap-2">
-            <dt className="flex items-center gap-2 text-muted">
-              <MapPin size={18} />
-              Ort:
-            </dt>
-            <dd>{gegenstand.ort}</dd>
-          </div>
-          <div className="flex items-start gap-2">
-            <dt className="flex items-center gap-2 text-muted">
-              <User size={18} />
-              Verleiht:
-            </dt>
-            <dd>{gegenstand.besitzer}</dd>
-          </div>
-        </dl>
+          <p className="mb-6 leading-relaxed">{gegenstand.beschreibung}</p>
+
+          <dl className="space-y-2 rounded-2xl border border-border bg-card p-4">
+            <div className="flex items-start gap-2">
+              <dt className="flex items-center gap-2 text-muted">
+                <MapPin size={18} />
+                Ort:
+              </dt>
+              <dd>{gegenstand.ort}</dd>
+            </div>
+            <div className="flex items-start gap-2">
+              <dt className="flex items-center gap-2 text-muted">
+                <User size={18} />
+                Verleiht:
+              </dt>
+              <dd>{gegenstand.besitzer}</dd>
+            </div>
+          </dl>
+        </div>
       </article>
     </main>
   );

@@ -20,7 +20,10 @@ export function sicheresZiel(ziel: unknown): string {
   const basis = "http://leihbar.invalid";
   try {
     const url = new URL(ziel, basis);
-    return url.origin === basis ? url.pathname + url.search + url.hash : "/";
+    if (url.origin !== basis) return "/";
+    // „/.//fremd.de“ wird beim Auflösen zu „//fremd.de“ – darum auch das Ergebnis prüfen.
+    const ergebnis = url.pathname + url.search + url.hash;
+    return ergebnis.startsWith("//") ? "/" : ergebnis;
   } catch {
     return "/";
   }

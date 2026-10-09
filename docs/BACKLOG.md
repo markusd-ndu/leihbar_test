@@ -50,7 +50,7 @@
 
 ## Tag 2 — Übung 4: Login & Anfragen
 
-### 🔧 Issue 5 — Anmelden
+### ✅ Issue 5 — Anmelden
 **Ziel:** Studierende registrieren sich mit E-Mail und Passwort und melden sich an – damit die App weiß, wer sie sind.
 **Nicht im Umfang:** Login mit Google, Passwort vergessen, Profilseite.
 **Akzeptanzkriterien:**
@@ -60,7 +60,7 @@
 
 **Fertig, wenn:** ein Testkonto registriert, ab- und wieder angemeldet, einmal mit falschem Passwort versucht, `/meine-anfragen` ohne Login aufgerufen.
 
-### ⬜ Issue 6 — Ausleihen anfragen
+### 🔧 Issue 6 — Ausleihen anfragen
 **Ziel:** Studierende fragen einen Gegenstand zum Ausleihen an und können die Anfrage zurückziehen – damit Besitzer*innen sehen, wer ihn haben möchte.
 **Nicht im Umfang:** Anfrage annehmen oder ablehnen, Zeitraum wählen, Bezahlung.
 **Akzeptanzkriterien:**

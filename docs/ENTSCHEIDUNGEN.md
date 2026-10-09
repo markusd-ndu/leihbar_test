@@ -10,3 +10,5 @@
 - 2026-10-09 — Eingaben werden auf dem Server geprüft (ganze deutsche Sätze) und zusätzlich von der Datenbank (Titel nicht leer, Preis nicht negativ) — Doppelte Absicherung
 - 2026-10-09 — Login mit Supabase Auth (E-Mail + Passwort), E-Mail-Bestätigung aus; geschützte Seiten (`/meine-anfragen`, `/anbieten`) leitet `src/proxy.ts` zu `/anmelden?weiter=…` um — Issue 5
 - 2026-10-09 — Tabelle `items`: anlegen dürfen nur Angemeldete, `owner_id` muss die eigene Konto-ID sein; Lesen weiter für alle, Ändern/Löschen für niemanden; Feld „Dein Name“ bleibt für „Verleiht:“ — Issue 5
+- 2026-10-09 — Tabelle `requests` (Gegenstand, Konto, Zeitpunkt; pro Konto und Gegenstand höchstens eine Anfrage): anlegen und löschen nur die eigene, ändern niemand; Zeilen sieht man nur die eigenen, zählen dürfen alle über die Funktion `anzahl_anfragen` (verrät nicht, wer) — Issue 6
+- 2026-10-09 — Detailseite am Handy: Titel, Preis und „Ausleihen anfragen“ stehen über dem Bild, damit der Button ohne Scrollen sichtbar ist — Issue 6
