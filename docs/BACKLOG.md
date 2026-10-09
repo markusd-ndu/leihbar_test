@@ -16,7 +16,7 @@
 
 **Fertig, wenn:** Startseite im Browser und in Handybreite geprüft; die verliehene „Systemkamera“ fehlt.
 
-### 🔧 Issue 2 — Detailseite
+### ✅ Issue 2 — Detailseite
 **Ziel:** Ein Klick auf einen Gegenstand zeigt Beschreibung und alle Details auf einer eigenen Seite – damit Studierende entscheiden können, ob sie ihn ausleihen.
 **Nicht im Umfang:** Anfragen, Bearbeiten, Teilen.
 **Akzeptanzkriterien:**
@@ -26,7 +26,7 @@
 
 **Fertig, wenn:** zwei Gegenstände angeklickt, Adresse kopiert und in neuem Tab geöffnet, zurück zur Liste; eine erfundene Adresse aufgerufen und die Meldung gesehen.
 
-### 🔧 Issue 3 — Nach Kategorie filtern
+### ✅ Issue 3 — Nach Kategorie filtern
 **Ziel:** Studierende filtern die Liste nach Kategorie (Mode, Wohnen & Deko, Technik, Freizeit) – damit sie schneller finden, was sie brauchen.
 **Nicht im Umfang:** Freitextsuche, mehrere Kategorien gleichzeitig.
 **Akzeptanzkriterien:**
@@ -38,7 +38,7 @@
 
 ## Tag 2 — Übung 3: Echte Daten (Supabase)
 
-### 🔧 Issue 4 — Gegenstand anbieten
+### ✅ Issue 4 — Gegenstand anbieten
 **Ziel:** Studierende bieten einen Gegenstand an, und er erscheint dauerhaft in der Liste – damit die App echte Angebote zeigt statt Beispieldaten.
 **Nicht im Umfang:** Bearbeiten, Löschen, Bilder hochladen (neue Gegenstände zeigen einen neutralen Platzhalter statt eines Bildes).
 **Akzeptanzkriterien:**
