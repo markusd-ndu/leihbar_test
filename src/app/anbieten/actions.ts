@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { kategorien } from "@/data/gegenstaende";
+import { ladeNutzer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 export type FormularZustand = {
@@ -55,8 +56,13 @@ export async function gegenstandAnbieten(
 
   if (Object.keys(fehler).length > 0) return { fehler, werte };
 
+  // Nur Angemeldete dürfen anbieten (das erzwingt auch die Regel in der Datenbank).
+  const nutzer = await ladeNutzer();
+  if (!nutzer) redirect("/anmelden?weiter=/anbieten");
+
   const supabase = await createClient();
   const { error } = await supabase.from("items").insert({
+    owner_id: nutzer.id,
     titel: werte.titel,
     kategorie: werte.kategorie,
     beschreibung: werte.beschreibung,

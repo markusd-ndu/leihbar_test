@@ -50,7 +50,7 @@
 
 ## Tag 2 — Übung 4: Login & Anfragen
 
-### ⬜ Issue 5 — Anmelden
+### 🔧 Issue 5 — Anmelden
 **Ziel:** Studierende registrieren sich mit E-Mail und Passwort und melden sich an – damit die App weiß, wer sie sind.
 **Nicht im Umfang:** Login mit Google, Passwort vergessen, Profilseite.
 **Akzeptanzkriterien:**

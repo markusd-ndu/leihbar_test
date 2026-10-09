@@ -141,7 +141,7 @@ export default function AnbietenFormular() {
         )}
       </Feld>
 
-      <Feld name="besitzer" label="Dein Name" hinweis="So steht es bei „Verleiht:“. Ein Login kommt mit Issue 5." fehler={fehler.besitzer}>
+      <Feld name="besitzer" label="Dein Name" hinweis="So steht es bei „Verleiht:“." fehler={fehler.besitzer}>
         {({ id, beschreibtDurch, ungueltig }) => (
           <input
             id={id}

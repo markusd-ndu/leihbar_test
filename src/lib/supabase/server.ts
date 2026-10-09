@@ -22,8 +22,8 @@ export async function createClient() {
         try {
           cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
         } catch {
-          // Aus einer Server Component darf man keine Cookies setzen. Ab Issue 5 (Login)
-          // frischt eine Middleware die Sitzung auf; bis dahin gibt es nichts zu speichern.
+          // Aus einer Server Component darf man keine Cookies setzen. Das ist okay:
+          // Der Proxy (src/proxy.ts) frischt die Sitzung vor jeder Seite auf.
         }
       },
     },
