@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { anfrageUmschalten, type AnfrageZustand } from "@/app/gegenstaende/[id]/actions";
+import AnfragenZaehler from "@/components/AnfragenZaehler";
 
 type Props = {
   gegenstandId: string;
@@ -54,7 +55,7 @@ export default function AnfrageButton({ gegenstandId, anzahl, angefragt, angemel
       )}
 
       <p aria-live="polite" className="text-muted">
-        Anfragen: <span className="font-semibold text-foreground">{anzahl}</span>
+        Anfragen: <AnfragenZaehler gegenstandId={gegenstandId} anzahl={anzahl} />
         {angefragt && <span className="ml-1">· Tipp erneut, um zurückzuziehen.</span>}
       </p>
 
