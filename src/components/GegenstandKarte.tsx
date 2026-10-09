@@ -13,7 +13,7 @@ type Props = {
 export default function GegenstandKarte({ gegenstand, vorladen = false }: Props) {
   return (
     // relative + after:inset-0 am Link: die ganze Karte ist anklickbar, vorgelesen wird nur der Titel.
-    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md">
+    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-accent">
       <div className="relative aspect-[4/3] bg-accent-soft">
         <Image
           src={gegenstand.bild}
@@ -29,7 +29,7 @@ export default function GegenstandKarte({ gegenstand, vorladen = false }: Props)
         <h3 className="font-semibold leading-snug">
           <Link
             href={`/gegenstaende/${gegenstand.id}`}
-            className="after:absolute after:inset-0 after:content-['']"
+            className="outline-none after:absolute after:inset-0 after:content-['']"
           >
             {gegenstand.titel}
           </Link>

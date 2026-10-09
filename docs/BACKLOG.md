@@ -6,7 +6,7 @@
 
 ## Tag 1 — Übung 2: MVP ohne Datenbank
 
-### ⬜ Issue 1 — Liste mit Beispieldaten
+### ✅ Issue 1 — Liste mit Beispieldaten
 **Ziel:** Auf der Startseite sehen Studierende alle Gegenstände, die gerade ausleihbar sind – damit sie wissen, was es am Campus gibt.
 **Nicht im Umfang:** Suche, Filter, Detailseite, Datenbank (Beispieldaten aus `src/data/gegenstaende.ts`, Bilder aus `public/gegenstaende/`).
 **Akzeptanzkriterien:**
@@ -16,7 +16,7 @@
 
 **Fertig, wenn:** Startseite im Browser und in Handybreite geprüft; die verliehene „Systemkamera“ fehlt.
 
-### ⬜ Issue 2 — Detailseite
+### 🔧 Issue 2 — Detailseite
 **Ziel:** Ein Klick auf einen Gegenstand zeigt Beschreibung und alle Details auf einer eigenen Seite – damit Studierende entscheiden können, ob sie ihn ausleihen.
 **Nicht im Umfang:** Anfragen, Bearbeiten, Teilen.
 **Akzeptanzkriterien:**
@@ -26,7 +26,7 @@
 
 **Fertig, wenn:** zwei Gegenstände angeklickt, Adresse kopiert und in neuem Tab geöffnet, zurück zur Liste; eine erfundene Adresse aufgerufen und die Meldung gesehen.
 
-### ⬜ Issue 3 — Nach Kategorie filtern
+### 🔧 Issue 3 — Nach Kategorie filtern
 **Ziel:** Studierende filtern die Liste nach Kategorie (Mode, Wohnen & Deko, Technik, Freizeit) – damit sie schneller finden, was sie brauchen.
 **Nicht im Umfang:** Freitextsuche, mehrere Kategorien gleichzeitig.
 **Akzeptanzkriterien:**
