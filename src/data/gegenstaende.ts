@@ -16,6 +16,7 @@ export type Gegenstand = {
   preisProTag: number; // Euro pro Tag, 0 = gratis
   verfuegbar: boolean;
   bild: string | null; // Pfad unter public/, z. B. "/gegenstaende/abendkleid.jpg"; null = kein Bild
+  besitzerId?: string | null; // Konto der Besitzer*in; die Beispiel-Gegenstände haben keins
 };
 
 export const gegenstaende: Gegenstand[] = [

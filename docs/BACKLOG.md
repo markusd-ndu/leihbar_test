@@ -107,7 +107,7 @@
 
 **Fertig, wenn:** die nächste Person in der Runde auf meiner Live-Adresse angefragt und zurückgezogen hat, während ich auf meinem Gerät zugesehen habe – einmal angemeldet, einmal abgemeldet.
 
-### ⬜ Issue 10 — Anfrage annehmen oder ablehnen
+### 🔧 Issue 10 — Anfrage annehmen oder ablehnen
 **Ziel:** Besitzer*innen nehmen eine Anfrage an oder lehnen sie ab, und die anfragende Person sieht die Antwort – damit aus einer Anfrage eine Ausleihe wird.
 **Nicht im Umfang:** Zeitraum, Übergabe, Nachrichten, E-Mails; Beispiel-Gegenstände ohne Besitzer*in-Konto.
 **Akzeptanzkriterien:**

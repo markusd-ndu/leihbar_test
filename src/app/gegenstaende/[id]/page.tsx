@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ImageOff, MapPin, User } from "lucide-react";
 import AnfrageButton from "@/components/AnfrageButton";
-import { hatAngefragt, ladeAnzahlAnfragen } from "@/lib/anfragen";
+import ErhalteneAnfragen from "@/components/ErhalteneAnfragen";
+import { hatAngefragt, ladeAnzahlAnfragen, ladeErhalteneAnfragen } from "@/lib/anfragen";
 import { ladeNutzer } from "@/lib/auth";
 import { ladeGegenstand } from "@/lib/items";
 import { preisText } from "@/lib/format";
@@ -21,7 +22,12 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
   const gegenstand = await ladeGegenstand(id);
   if (!gegenstand) notFound();
   const nutzer = await ladeNutzer();
-  const [anzahl, angefragt] = await Promise.all([ladeAnzahlAnfragen(id), hatAngefragt(id, nutzer)]);
+  const istBesitzerin = nutzer !== null && gegenstand.besitzerId === nutzer.id;
+  const [anzahl, angefragt, erhalten] = await Promise.all([
+    ladeAnzahlAnfragen(id),
+    hatAngefragt(id, nutzer),
+    istBesitzerin ? ladeErhalteneAnfragen(id) : null,
+  ]);
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
@@ -61,6 +67,8 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
         </div>
 
         <div className="order-3">
+          {erhalten && <ErhalteneAnfragen gegenstandId={id} anfragen={erhalten} />}
+
           {!gegenstand.verfuegbar && (
             <p className="mb-4 rounded-xl border border-border bg-card px-4 py-3 text-sm">
               Dieser Gegenstand ist gerade verliehen.

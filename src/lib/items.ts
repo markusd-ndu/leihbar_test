@@ -13,9 +13,10 @@ export type Zeile = {
   preis_pro_tag: number;
   verfuegbar: boolean;
   bild_url: string | null;
+  owner_id: string | null;
 };
 
-export const spalten = "id, titel, kategorie, beschreibung, besitzer, ort, preis_pro_tag, verfuegbar, bild_url";
+export const spalten = "id, titel, kategorie, beschreibung, besitzer, ort, preis_pro_tag, verfuegbar, bild_url, owner_id";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -30,6 +31,7 @@ export function zuGegenstand(z: Zeile): Gegenstand {
     preisProTag: Number(z.preis_pro_tag),
     verfuegbar: z.verfuegbar,
     bild: z.bild_url,
+    besitzerId: z.owner_id,
   };
 }
 

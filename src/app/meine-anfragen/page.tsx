@@ -2,10 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import GegenstandKarte from "@/components/GegenstandKarte";
+import type { AnfrageStatus } from "@/lib/anfrage-status";
 import { ladeMeineAnfragen } from "@/lib/anfragen";
 import { ladeNutzer } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Meine Anfragen" };
+
+const statusFarbe: Record<AnfrageStatus, string> = {
+  offen: "text-foreground",
+  angenommen: "text-foreground",
+  abgelehnt: "text-danger",
+};
 
 export default async function MeineAnfragen() {
   // Der Proxy leitet schon um; diese Prüfung ist die zweite Absicherung.
@@ -21,9 +28,18 @@ export default async function MeineAnfragen() {
         <>
           <p className="mb-6 text-muted">Die neueste Anfrage steht oben.</p>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {angefragt.map((gegenstand, index) => (
+            {angefragt.map(({ gegenstand, status }, index) => (
               <li key={gegenstand.id}>
-                <GegenstandKarte gegenstand={gegenstand} vorladen={index === 0} ueberschrift="h2" />
+                <GegenstandKarte
+                  gegenstand={gegenstand}
+                  vorladen={index === 0}
+                  ueberschrift="h2"
+                  zusatz={
+                    <p className={`text-sm font-medium ${statusFarbe[status]}`}>
+                      <span className="text-muted">Status:</span> {status}
+                    </p>
+                  }
+                />
               </li>
             ))}
           </ul>

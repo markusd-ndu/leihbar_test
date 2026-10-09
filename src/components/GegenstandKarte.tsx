@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ImageOff, MapPin, User } from "lucide-react";
@@ -10,9 +11,11 @@ type Props = {
   vorladen?: boolean;
   /** Auf Seiten ohne Zwischenüberschrift folgt die Karte direkt auf das `<h1>`. */
   ueberschrift?: "h2" | "h3";
+  /** Zusätzliche Zeile unten in der Karte, z. B. der Status einer Anfrage. */
+  zusatz?: ReactNode;
 };
 
-export default function GegenstandKarte({ gegenstand, vorladen = false, ueberschrift: Titel = "h3" }: Props) {
+export default function GegenstandKarte({ gegenstand, vorladen = false, ueberschrift: Titel = "h3", zusatz }: Props) {
   return (
     // relative + after:inset-0 am Link: die ganze Karte ist anklickbar, vorgelesen wird nur der Titel.
     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-accent">
@@ -59,6 +62,7 @@ export default function GegenstandKarte({ gegenstand, vorladen = false, uebersch
             <dd>{gegenstand.besitzer}</dd>
           </div>
         </dl>
+        {zusatz}
       </div>
     </article>
   );
