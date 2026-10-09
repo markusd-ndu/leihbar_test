@@ -3,16 +3,15 @@ import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
 import GegenstandKarte from "@/components/GegenstandKarte";
 import KategorieFilter from "@/components/KategorieFilter";
-import { gegenstaende, kategorien } from "@/data/gegenstaende";
+import { kategorien } from "@/data/gegenstaende";
+import { ladeVerfuegbare } from "@/lib/items";
 
 export default async function Home({ searchParams }: PageProps<"/">) {
   const { kategorie } = await searchParams;
   // Unbekannte oder fehlende Kategorie in der Adresse → „Alle“.
   const aktiveKategorie = kategorien.find((k) => k === kategorie) ?? null;
 
-  const sichtbar = gegenstaende.filter(
-    (g) => g.verfuegbar && (aktiveKategorie === null || g.kategorie === aktiveKategorie),
-  );
+  const sichtbar = await ladeVerfuegbare(aktiveKategorie);
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-12 sm:block">
@@ -34,9 +33,12 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           >
             Gegenstände ansehen
           </a>
-          <span className="rounded-xl border border-border px-5 py-3 text-muted">
-            Anbieten – kommt an Tag 2
-          </span>
+          <Link
+            href="/anbieten"
+            className="rounded-xl border border-border px-5 py-3 font-medium transition hover:border-foreground"
+          >
+            Gegenstand anbieten
+          </Link>
         </div>
       </section>
 
@@ -73,9 +75,13 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           </ul>
         ) : (
           <p className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-muted">
-            In dieser Kategorie ist gerade nichts frei.{" "}
-            <Link href="/" scroll={false} className="font-medium text-foreground underline">
-              Alle Gegenstände ansehen
+            {aktiveKategorie ? "In dieser Kategorie ist gerade nichts frei." : "Gerade ist nichts frei."}{" "}
+            <Link
+              href={aktiveKategorie ? "/" : "/anbieten"}
+              scroll={false}
+              className="font-medium text-foreground underline"
+            >
+              {aktiveKategorie ? "Alle Gegenstände ansehen" : "Biete den ersten Gegenstand an"}
             </Link>
           </p>
         )}

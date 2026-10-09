@@ -1,4 +1,5 @@
-// Beispieldaten — bis die Datenbank (Supabase, Tag 2) angebunden ist.
+// Typen und Kategorien der App. Die Beispieldaten unten sind die Startdaten, die in der
+// Datenbank-Tabelle `items` liegen (Issue 4); die App liest sie von dort, nicht mehr aus dieser Datei.
 // Ein Gegenstand ist absichtlich gerade verliehen (siehe Issue 1 im Backlog).
 // Die Bilder liegen in public/gegenstaende/.
 
@@ -14,7 +15,7 @@ export type Gegenstand = {
   ort: string;
   preisProTag: number; // Euro pro Tag, 0 = gratis
   verfuegbar: boolean;
-  bild: string; // Pfad unter public/, z. B. "/gegenstaende/abendkleid.jpg"
+  bild: string | null; // Pfad unter public/, z. B. "/gegenstaende/abendkleid.jpg"; null = kein Bild
 };
 
 export const gegenstaende: Gegenstand[] = [

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, User } from "lucide-react";
+import { ImageOff, MapPin, User } from "lucide-react";
 import type { Gegenstand } from "@/data/gegenstaende";
 import { preisText } from "@/lib/format";
 
@@ -15,14 +15,20 @@ export default function GegenstandKarte({ gegenstand, vorladen = false }: Props)
     // relative + after:inset-0 am Link: die ganze Karte ist anklickbar, vorgelesen wird nur der Titel.
     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-accent">
       <div className="relative aspect-[4/3] bg-accent-soft">
-        <Image
-          src={gegenstand.bild}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
-          preload={vorladen}
-        />
+        {gegenstand.bild ? (
+          <Image
+            src={gegenstand.bild}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+            preload={vorladen}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-muted">
+            <ImageOff size={40} aria-hidden />
+          </div>
+        )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <p className="text-sm text-muted">{gegenstand.kategorie}</p>

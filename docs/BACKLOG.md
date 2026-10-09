@@ -38,7 +38,7 @@
 
 ## Tag 2 — Übung 3: Echte Daten (Supabase)
 
-### ⬜ Issue 4 — Gegenstand anbieten
+### 🔧 Issue 4 — Gegenstand anbieten
 **Ziel:** Studierende bieten einen Gegenstand an, und er erscheint dauerhaft in der Liste – damit die App echte Angebote zeigt statt Beispieldaten.
 **Nicht im Umfang:** Bearbeiten, Löschen, Bilder hochladen (neue Gegenstände zeigen einen neutralen Platzhalter statt eines Bildes).
 **Akzeptanzkriterien:**

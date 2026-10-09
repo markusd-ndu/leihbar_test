@@ -2,28 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin, User } from "lucide-react";
-import { gegenstaende } from "@/data/gegenstaende";
+import { ArrowLeft, ImageOff, MapPin, User } from "lucide-react";
+import { ladeGegenstand } from "@/lib/items";
 import { preisText } from "@/lib/format";
-
-function finde(id: string) {
-  return gegenstaende.find((g) => g.id === id);
-}
-
-export function generateStaticParams() {
-  return gegenstaende.map((g) => ({ id: g.id }));
-}
 
 export async function generateMetadata({
   params,
 }: PageProps<"/gegenstaende/[id]">): Promise<Metadata> {
   const { id } = await params;
-  return { title: finde(id)?.titel ?? "Nicht gefunden" };
+  return { title: (await ladeGegenstand(id))?.titel ?? "Nicht gefunden" };
 }
 
 export default async function GegenstandSeite({ params }: PageProps<"/gegenstaende/[id]">) {
   const { id } = await params;
-  const gegenstand = finde(id);
+  const gegenstand = await ladeGegenstand(id);
   if (!gegenstand) notFound();
 
   return (
@@ -38,14 +30,20 @@ export default async function GegenstandSeite({ params }: PageProps<"/gegenstaen
 
       <article>
         <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl bg-accent-soft">
-          <Image
-            src={gegenstand.bild}
-            alt={gegenstand.titel}
-            fill
-            sizes="(min-width: 768px) 720px, 100vw"
-            className="object-cover"
-            preload
-          />
+          {gegenstand.bild ? (
+            <Image
+              src={gegenstand.bild}
+              alt={gegenstand.titel}
+              fill
+              sizes="(min-width: 768px) 720px, 100vw"
+              className="object-cover"
+              preload
+            />
+          ) : (
+            <div role="img" aria-label={`Kein Bild für ${gegenstand.titel}`} className="flex h-full items-center justify-center text-muted">
+              <ImageOff size={48} aria-hidden />
+            </div>
+          )}
         </div>
 
         <p className="mb-1 text-sm text-muted">{gegenstand.kategorie}</p>

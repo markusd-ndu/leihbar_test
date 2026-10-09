@@ -9,8 +9,12 @@ export default function Header() {
           Leihbar
         </Link>
         <nav aria-label="Hauptnavigation" className="flex items-center gap-4 text-sm text-muted">
-          <Link href="/#gegenstaende" className="flex min-h-11 items-center hover:text-foreground">
+          {/* Am Handy ist kein Platz: Das Logo führt ebenfalls zur Liste. */}
+          <Link href="/#gegenstaende" className="hidden min-h-11 items-center hover:text-foreground sm:flex">
             Gegenstände
+          </Link>
+          <Link href="/anbieten" className="flex min-h-11 items-center hover:text-foreground">
+            Anbieten
           </Link>
           <span className="whitespace-nowrap rounded-full border border-border px-3 py-1 text-xs">
             Anmelden · Tag 2
