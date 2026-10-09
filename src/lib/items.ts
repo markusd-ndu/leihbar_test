@@ -3,7 +3,7 @@ import type { Gegenstand, Kategorie } from "@/data/gegenstaende";
 import { createClient } from "@/lib/supabase/server";
 
 // Ein Gegenstand, wie er in der Tabelle `items` steht.
-type Zeile = {
+export type Zeile = {
   id: string;
   titel: string;
   kategorie: Kategorie;
@@ -15,11 +15,11 @@ type Zeile = {
   bild_url: string | null;
 };
 
-const spalten = "id, titel, kategorie, beschreibung, besitzer, ort, preis_pro_tag, verfuegbar, bild_url";
+export const spalten = "id, titel, kategorie, beschreibung, besitzer, ort, preis_pro_tag, verfuegbar, bild_url";
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function zuGegenstand(z: Zeile): Gegenstand {
+export function zuGegenstand(z: Zeile): Gegenstand {
   return {
     id: z.id,
     titel: z.titel,

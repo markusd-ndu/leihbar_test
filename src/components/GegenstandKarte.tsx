@@ -8,9 +8,11 @@ type Props = {
   gegenstand: Gegenstand;
   /** Nur für das erste sichtbare Bild: lädt es sofort statt erst beim Scrollen. */
   vorladen?: boolean;
+  /** Auf Seiten ohne Zwischenüberschrift folgt die Karte direkt auf das `<h1>`. */
+  ueberschrift?: "h2" | "h3";
 };
 
-export default function GegenstandKarte({ gegenstand, vorladen = false }: Props) {
+export default function GegenstandKarte({ gegenstand, vorladen = false, ueberschrift: Titel = "h3" }: Props) {
   return (
     // relative + after:inset-0 am Link: die ganze Karte ist anklickbar, vorgelesen wird nur der Titel.
     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-accent">
@@ -32,14 +34,14 @@ export default function GegenstandKarte({ gegenstand, vorladen = false }: Props)
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <p className="text-sm text-muted">{gegenstand.kategorie}</p>
-        <h3 className="font-semibold leading-snug">
+        <Titel className="font-semibold leading-snug">
           <Link
             href={`/gegenstaende/${gegenstand.id}`}
             className="outline-none after:absolute after:inset-0 after:content-['']"
           >
             {gegenstand.titel}
           </Link>
-        </h3>
+        </Titel>
         <p className="font-medium">{preisText(gegenstand.preisProTag)}</p>
         <dl className="mt-auto space-y-1 pt-2 text-sm text-muted">
           <div className="flex items-start gap-2">
