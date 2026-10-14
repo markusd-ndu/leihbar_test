@@ -72,7 +72,7 @@
 
 **Fertig, wenn:** alle Kriterien im Browser durchgeklickt, Zähler stimmt auch nach einem Reload.
 
-### 🔧 Issue 7 — Meine Anfragen
+### ✅ Issue 7 — Meine Anfragen
 **Ziel:** Unter `/meine-anfragen` sehen Studierende, was sie angefragt haben – damit sie den Überblick behalten.
 **Nicht im Umfang:** Status der Anfrage, Erinnerungen.
 **Akzeptanzkriterien:**
@@ -96,7 +96,7 @@
 
 ## Tag 2 — Übung 6: Gemeinsam (mit den Konten der anderen)
 
-### 🔧 Issue 9 — Zähler live
+### ✅ Issue 9 — Zähler live
 **Ziel:** Der Zähler „Anfragen“ auf der Detailseite ändert sich ohne Neuladen, sobald jemand anderes anfragt oder zurückzieht – damit Besitzer*innen sofort sehen, dass jemand Interesse hat.
 **Nicht im Umfang:** Benachrichtigungen, Töne, Liste der Anfragenden.
 **Akzeptanzkriterien:**
@@ -107,7 +107,7 @@
 
 **Fertig, wenn:** die nächste Person in der Runde auf meiner Live-Adresse angefragt und zurückgezogen hat, während ich auf meinem Gerät zugesehen habe – einmal angemeldet, einmal abgemeldet.
 
-### 🔧 Issue 10 — Anfrage annehmen oder ablehnen
+### ✅ Issue 10 — Anfrage annehmen oder ablehnen
 **Ziel:** Besitzer*innen nehmen eine Anfrage an oder lehnen sie ab, und die anfragende Person sieht die Antwort – damit aus einer Anfrage eine Ausleihe wird.
 **Nicht im Umfang:** Zeitraum, Übergabe, Nachrichten, E-Mails; Beispiel-Gegenstände ohne Besitzer*in-Konto.
 **Akzeptanzkriterien:**
@@ -119,7 +119,7 @@
 
 **Fertig, wenn:** die nächste Person in der Runde auf meiner Live-Adresse einen Gegenstand angefragt hat, den ich angeboten habe; ich habe angenommen und sie hat „angenommen“ gesehen; eine zweite Anfrage abgelehnt; RLS-Prüfung mit dem Supabase-MCP ohne Lücke.
 
-### 🔧 Issue 11 — Hinweis auf neue Anfragen (wer schnell ist)
+### ✅ Issue 11 — Hinweis auf neue Anfragen (wer schnell ist)
 **Ziel:** Im Header sehe ich, wie viele offene Anfragen auf meine Gegenstände warten – damit ich keine verpasse.
 **Nicht im Umfang:** E-Mail- oder Push-Benachrichtigungen, Anfragen auf fremde Gegenstände.
 **Akzeptanzkriterien:**
