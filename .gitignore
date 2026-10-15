@@ -45,3 +45,10 @@ next-env.d.ts
 
 # Arbeitskopien paralleler Claude-Sessions (claude -w)
 /.claude/worktrees/
+
+# Screenshots der Handy-Prüfung
+/screenshots/
+
+# Playwright
+/test-results/
+/playwright-report/
