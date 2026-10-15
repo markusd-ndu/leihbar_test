@@ -1,0 +1,23 @@
+name: Prüfung
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    # Nur Platzhalter, keine echten Werte und keine Secrets: Die Prüfung zeigt nur, dass die App baut.
+    # Der Playwright-Test läuft hier nicht mit, er braucht die echte Datenbank.
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://platzhalter.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_platzhalter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
