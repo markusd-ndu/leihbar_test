@@ -156,7 +156,7 @@
 
 **Fertig, wenn:** angefragt, zurückgezogen, neu geladen; den Fehlerfall einmal ausgelöst (DevTools → Network → „Offline“, dann klicken) und gesehen, dass der Zähler zurückspringt; danach wieder „No throttling“.
 
-### ⬜ Issue 14 — Erfolgsmoment beim Anbieten
+### 🔧 Issue 14 — Erfolgsmoment beim Anbieten
 **Ziel:** Nach dem Speichern eines neuen Gegenstands sieht man deutlich, dass es geklappt hat, und findet ihn sofort in der Liste – damit Anbietende sicher sind, dass ihr Angebot online ist.
 **Nicht im Umfang:** Konfetti, Teilen, E-Mail an andere.
 **Akzeptanzkriterien:**

@@ -61,15 +61,19 @@ export async function gegenstandAnbieten(
   if (!nutzer) redirect("/anmelden?weiter=/anbieten");
 
   const supabase = await createClient();
-  const { error } = await supabase.from("items").insert({
-    owner_id: nutzer.id,
-    titel: werte.titel,
-    kategorie: werte.kategorie,
-    beschreibung: werte.beschreibung,
-    ort: werte.ort,
-    besitzer: werte.besitzer,
-    preis_pro_tag: Math.round(preis * 100) / 100,
-  });
+  const { data: neu, error } = await supabase
+    .from("items")
+    .insert({
+      owner_id: nutzer.id,
+      titel: werte.titel,
+      kategorie: werte.kategorie,
+      beschreibung: werte.beschreibung,
+      ort: werte.ort,
+      besitzer: werte.besitzer,
+      preis_pro_tag: Math.round(preis * 100) / 100,
+    })
+    .select("id")
+    .single();
   if (error) {
     return {
       fehler: { allgemein: "Das Speichern hat leider nicht geklappt. Bitte versuch es gleich noch einmal." },
@@ -78,5 +82,6 @@ export async function gegenstandAnbieten(
   }
 
   revalidatePath("/");
-  redirect("/#gegenstaende");
+  // ?neu=<ID>: die Startseite zeigt damit einmalig Erfolgsmeldung und Hervorhebung.
+  redirect(`/?neu=${neu.id}#gegenstaende`);
 }

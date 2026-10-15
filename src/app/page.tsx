@@ -1,22 +1,25 @@
 import { Hand, Recycle, Search } from "lucide-react";
 import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
+import ErfolgsMeldung from "@/components/ErfolgsMeldung";
 import GegenstandListe from "@/components/GegenstandListe";
 import KategorieFilter from "@/components/KategorieFilter";
 import { kategorien } from "@/data/gegenstaende";
 import { ladeVerfuegbare } from "@/lib/items";
 
 export default async function Home({ searchParams }: PageProps<"/">) {
-  const { kategorie } = await searchParams;
+  const { kategorie, neu } = await searchParams;
   // Unbekannte oder fehlende Kategorie in der Adresse → „Alle“.
   const aktiveKategorie = kategorien.find((k) => k === kategorie) ?? null;
 
   const sichtbar = await ladeVerfuegbare(aktiveKategorie);
+  // Nach dem Anbieten kommt `?neu=<ID>`. Nur wenn es den Gegenstand in der Liste gibt, zeigen wir den Erfolg.
+  const neuId = typeof neu === "string" && sichtbar.some((g) => g.id === neu) ? neu : null;
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-12 sm:block">
       <section className="mb-14">
-        <p className="mb-3 inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-foreground">
+        <p className="mb-3 inline-block rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-foreground sm:text-xs">
           NDU · Wintersemester 2026
         </p>
         <h1 className="mb-4 max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
@@ -66,7 +69,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </h2>
         <KategorieFilter aktiv={aktiveKategorie} />
         {sichtbar.length > 0 ? (
-          <GegenstandListe gegenstaende={sichtbar} />
+          <GegenstandListe gegenstaende={sichtbar} neuId={neuId} />
         ) : (
           <p className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-muted">
             {aktiveKategorie ? "In dieser Kategorie ist gerade nichts frei." : "Gerade ist nichts frei."}{" "}
@@ -80,6 +83,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           </p>
         )}
       </section>
+      <ErfolgsMeldung sichtbar={neuId !== null} />
     </main>
   );
 }
