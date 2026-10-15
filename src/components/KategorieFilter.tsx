@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import { kategorien, type Kategorie } from "@/data/gegenstaende";
 
 type Props = {
@@ -7,6 +10,8 @@ type Props = {
 
 // Der Filter steckt in der Adresse (/?kategorie=Mode): teilbar, und „Zurück“ im Browser funktioniert.
 export default function KategorieFilter({ aktiv }: Props) {
+  // „Bewegung reduzieren“: die Markierung springt dann direkt zum neuen Filter.
+  const reduziert = useReducedMotion();
   const optionen: { name: string; kategorie: Kategorie | null }[] = [
     { name: "Alle", kategorie: null },
     ...kategorien.map((k) => ({ name: k, kategorie: k })),
@@ -23,13 +28,22 @@ export default function KategorieFilter({ aktiv }: Props) {
                 href={kategorie ? { pathname: "/", query: { kategorie } } : "/"}
                 scroll={false}
                 aria-current={istAktiv ? "true" : undefined}
-                className={`flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition ${
+                className={`relative flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition ${
                   istAktiv
-                    ? "border-accent bg-accent text-white"
+                    ? "border-accent text-white"
                     : "border-border bg-card text-foreground hover:border-foreground"
                 }`}
               >
-                {name}
+                {istAktiv && (
+                  // Die Markierung gehört nicht zu einem Filter, sondern wandert zwischen ihnen.
+                  <motion.span
+                    layoutId="filter-markierung"
+                    aria-hidden
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{ duration: reduziert ? 0 : 0.3, ease: "easeOut" }}
+                  />
+                )}
+                <span className="relative">{name}</span>
               </Link>
             </li>
           );

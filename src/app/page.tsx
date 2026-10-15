@@ -1,7 +1,7 @@
 import { Hand, Recycle, Search } from "lucide-react";
 import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
-import GegenstandKarte from "@/components/GegenstandKarte";
+import GegenstandListe from "@/components/GegenstandListe";
 import KategorieFilter from "@/components/KategorieFilter";
 import { kategorien } from "@/data/gegenstaende";
 import { ladeVerfuegbare } from "@/lib/items";
@@ -66,13 +66,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </h2>
         <KategorieFilter aktiv={aktiveKategorie} />
         {sichtbar.length > 0 ? (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sichtbar.map((gegenstand, index) => (
-              <li key={gegenstand.id}>
-                <GegenstandKarte gegenstand={gegenstand} vorladen={index === 0} />
-              </li>
-            ))}
-          </ul>
+          <GegenstandListe gegenstaende={sichtbar} />
         ) : (
           <p className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-muted">
             {aktiveKategorie ? "In dieser Kategorie ist gerade nichts frei." : "Gerade ist nichts frei."}{" "}

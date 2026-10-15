@@ -133,7 +133,7 @@
 
 ## Tag 2 — Übung 7: Animation
 
-### ⬜ Issue 12 — Filter mit Animation
+### 🔧 Issue 12 — Filter mit Animation
 **Ziel:** Beim Wechsel der Kategorie gleiten die Karten an ihren neuen Platz, statt zu springen – damit man sieht, was wegfällt und was bleibt.
 **Nicht im Umfang:** Animation beim ersten Laden der Seite, neue Filter, Sortierung.
 **Akzeptanzkriterien:**
