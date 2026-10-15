@@ -23,6 +23,12 @@ Dieses Projekt gehört einer/einem Studierenden der NDU (Master Management by In
 - **Nie `git push --force`, nie `rm -rf`, nie `.env*`-Dateien committen.**
 - Akzeptanzkriterien aus `docs/BACKLOG.md` sind die Definition of Done. Wenn ein Issue umgesetzt ist, geh die Kriterien einzeln durch und zeig für jedes einen **Beleg**: was du geprüft hast (Build, Test, Abfrage) und was die Person im Browser sehen soll. Behaupte nichts, was du nicht geprüft hast.
 
+## Arbeitsweise
+
+- **Ein Issue, ein Branch.** Jedes Issue bekommt einen eigenen Branch, der von `main` abzweigt (z. B. `issue-14-erfolgsmoment`). Nichts anderes kommt auf diesen Branch.
+- **Vor dem Pull Request: `/code-review`.** Führ ihn aus und zeig mir die Funde in einfachen Worten: was nicht stimmt, warum es wichtig ist, wie schlimm es ist. Behebe nur, was ich freigebe. Prüf einen Fund zuerst gegen den echten Code, bevor du ihn änderst.
+- **Die Beschreibung des Pull Requests versteht man ohne Programmierkenntnisse.** Sie hat drei Teile: *Was wurde geändert?* (2–4 Sätze), *Wie prüfe ich es?* (Schritte im Browser) und *Welche Risiken gibt es?* (z. B. Datenbank, Login, noch nicht geprüfte Stellen; steht dort nichts, schreib „Keine bekannt“).
+
 ## Tech-Stack (nicht ohne Rücksprache ändern)
 
 - Next.js (App Router, `src/app`), TypeScript, Tailwind CSS v4
